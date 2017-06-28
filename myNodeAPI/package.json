@@ -1,0 +1,12 @@
+{
+  "name": "my-node-api",
+  "version": "0.0.0",
+  "description": "myNodeAPI",
+  "main": "app.js",
+  "author": {
+    "name": "a.roman.godinez"
+  },
+  "dependencies": {
+    "mysql": "^2.13.0"
+  }
+}
