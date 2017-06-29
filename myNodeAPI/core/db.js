@@ -4,19 +4,20 @@ var settings = require("../Settings");
 
 exports.executeSql = function (sql, callback) {
     var connection = new sqlDb.createConnection(settings.dbConfig);
-    connection.connect()
-        .then(function () {
-            connection.query(sql)
-                .then(function (recordset) {
-                    callback(recordset);
-                })
-                .catch(function (error) {
-                    console.log(err);
-                    callback(null, error);
-                });
-        })
-        .catch(function (error) {
-            console.log(err);
+    connection.connect(function (error) {
+        if (error) {
+            console.log(error);
             callback(null, error);
+        }
+        connection.query(sql, function (error, result, fields) {
+            if (error) {
+                console.log(error);
+                callback(null, error);
+            }
+            else
+                callback(result);
         });
+            
+    });
+        
 };

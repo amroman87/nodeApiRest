@@ -3,7 +3,6 @@
     user: "amroman",
     password: "congelado-00",
     database: "mydb"
-    //port: -- Dont know port look at mySQL Config
+    //port: -- Dont know port, look at mySQL Config
 }
-
-var mysql = require("mysql");
+exports.serverPort = 9000;

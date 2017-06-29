@@ -1,16 +1,18 @@
 ﻿var db = require("../core/db");
 
 exports.getList = function (request, response) {
-    db.executeSql("SELECT * FROM emp", function (data, error) {
+    db.executeSql("SELECT * FROM employeek", function (data, error) {
         if (error) {
-            resp.writeHead(500, "Internal Error ocurred", { "Content-Type": "text/html" });
-            resp.write("<html><head><title>500</title><\head><body>500: Internal Server Error. Details " + err + "<\body><\html>");           
+            //response.writeHead(500, "Internal Error ocurred", { "Content-Type": "text/html" });
+            //response.write("<html><head><title>500</title></head><body>500: Internal Server Error. Details " + error + "</body></html>");           
+            response.writeHead(200, { "Content-Type": "application/json" });
+            response.write(JSON.stringify({data: "Error ocurrerd: " + error}));
         }
         else {
-            resp.writeHead(200, { "Content-Type": "application/json" });
-            resp.write(JSON.stringify(data));           
+            response.writeHead(200, { "Content-Type": "application/json" });
+            response.write(JSON.stringify(data));           
         }
-        resp.end();
+        response.end();
     });
 };
 
