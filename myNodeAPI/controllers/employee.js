@@ -1,7 +1,7 @@
 ﻿var db = require("../core/db");
 
 exports.getList = function (request, response) {
-    db.executeSql("SELECT * FROM employeek", function (data, error) {
+    db.executeSql("SELECT * FROM employee", function (data, error) {
         if (error) {
             //response.writeHead(500, "Internal Error ocurred", { "Content-Type": "text/html" });
             //response.write("<html><head><title>500</title></head><body>500: Internal Server Error. Details " + error + "</body></html>");           
