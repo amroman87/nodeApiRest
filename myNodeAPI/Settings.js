@@ -1,7 +1,7 @@
 ﻿exports.dbConfig = {
     host: "localhost",
-    user: "amroman",
-    password: "congelado-00",
+    user: "",
+    password: "",
     database: "mydb"
     //port: -- Dont know port, look at mySQL Config
 }
