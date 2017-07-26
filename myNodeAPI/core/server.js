@@ -31,7 +31,17 @@ http.createServer(function (request, response) {
             break;
         case "POST":
             if (request.url == "/employee") {
-                response.end();
+                var reqBody = '';
+                request.on("data", function (data) {
+                    reqBody += data;
+                    if (data.length > 1e7) //10 MB
+                    {
+                        httpMsg.show413Error(response);
+                    }
+                });
+                request.on("end", function (data) {
+                    emp.add(request, response, reqBody);
+                });
             }
             else
             {
@@ -41,7 +51,17 @@ http.createServer(function (request, response) {
             break;
         case "PUT":
             if (request.url == "/employee") {
-                response.end();
+                var reqBody = '';
+                request.on("data", function (data) {
+                    reqBody += data;
+                    if (data.length > 1e7) //10 MB
+                    {
+                        httpMsg.show413Error(response);
+                    }
+                });
+                request.on("end", function (data) {
+                    emp.update(request, response, reqBody);
+                });
             }
             else {
                 httpMsg.show404Error(response);
@@ -49,10 +69,20 @@ http.createServer(function (request, response) {
             break;
         case "DELETE":
             if (request.url == "/employee") {
-                response.end();
+                httpMsg.show404Error(response); //Not found for delete all employee
             }
             else {
-                httpMsg.show404Error(response);
+                var empPat = "[0-9]+";
+                var empPatObj = new RegExp("/employee/" + empPat);
+                if (empPatObj.test(request.url)) {
+                    empPatObj = new RegExp(empPat);
+                    var id = empPatObj.exec(request.url);
+                    emp.delete(request, response, id);
+
+                }
+                else {
+                    httpMsg.show404Error(response);
+                }
             }
             break
         default:
